@@ -1,0 +1,182 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #0d0d12;
+  --surface:  #16161f;
+  --surface2: #1e1e2a;
+  --border:   #2a2a3a;
+  --accent:   #7c6af7;
+  --accent2:  #5eead4;
+  --text:     #e8e8f0;
+  --muted:    #6b6b80;
+  --danger:   #f87171;
+  --num-bg:   #1a1a26;
+  --op-bg:    #252535;
+  --func-bg:  #1e1e2e;
+  --eq-bg:    #7c6af7;
+  --sci-bg:   #131320;
+  --radius:   16px;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Mono', monospace;
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* Subtle grid bg */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.app {
+  width: 100%;
+  max-width: 360px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 1.5rem;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+  width: 360px;       
+  max-width: 100%;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.logo span { color: var(--accent); }
+
+.mode-toggle {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  color: var(--muted);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  letter-spacing: 0.08em;
+}
+
+.mode-toggle:hover,
+.mode-toggle.active { color: var(--accent); border-color: var(--accent); }
+
+/* Display */
+.display {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  text-align: right;
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.expression {
+  font-size: 0.72rem;
+  color: var(--muted);
+  min-height: 1.2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 4px;
+}
+
+.result {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.8rem;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+
+.result.error { color: var(--danger); font-size: 1.2rem; font-family: 'Space Mono', monospace; }
+
+/* Sci pad */
+.sci-pad {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+/* Basic pad */
+.basic-pad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+/* Buttons */
+.btn {
+  border: none;
+  border-radius: 12px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0;
+  height: 58px;
+  cursor: pointer;
+  transition: transform 0.08s, opacity 0.15s, background 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn:active { transform: scale(0.93); }
+
+.btn.num  { background: var(--num-bg); color: var(--text); }
+.btn.op   { background: var(--op-bg);  color: var(--accent2); font-size: 1.2rem; }
+.btn.func { background: var(--func-bg); color: var(--muted); }
+.btn.eq   { background: var(--eq-bg);  color: #fff; font-size: 1.3rem; }
+.btn.sci  { background: var(--sci-bg); color: var(--accent); font-size: 0.75rem; height: 40px; border-radius: 8px; }
+
+.btn.num:hover  { background: #222232; }
+.btn.op:hover   { background: #2e2e42; }
+.btn.func:hover { background: #252535; }
+.btn.eq:hover   { opacity: 0.88; }
+.btn.sci:hover  { background: #1a1a30; }
+
+/* Zero button spans 2 cols */
+.btn.zero { grid-column: span 2; }
+
+/* Mobile */
+@media (max-width: 400px) {
+  .app { border-radius: 0; border: none; min-height: 100vh; padding: 1.25rem 1rem; }
+  html, body { align-items: flex-start; }
+  .btn { height: 52px; }
+  .result { font-size: 2.2rem; }
+}

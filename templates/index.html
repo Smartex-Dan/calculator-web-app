@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Instrument+Serif&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <title>SmartCalc</title>
+</head>
+<body>
+
+  <div class="app">
+
+    <header>
+      <div class="logo">Smart<span>Calc</span></div>
+      <button class="mode-toggle" id="modeToggle" onclick="toggleMode()">SCI</button>
+    </header>
+
+    <!-- Display -->
+    <div class="display">
+      <p class="expression" id="expression"></p>
+      <p class="result" id="result">0</p>
+    </div>
+
+    <!-- Scientific Row (hidden by default) -->
+    <div class="sci-pad" id="sciPad" style="display:none;">
+      <button class="btn sci" onclick="appendSci('sin(')">sin</button>
+      <button class="btn sci" onclick="appendSci('cos(')">cos</button>
+      <button class="btn sci" onclick="appendSci('tan(')">tan</button>
+      <button class="btn sci" onclick="appendSci('log(')">log</button>
+      <button class="btn sci" onclick="appendSci('ln(')">ln</button>
+      <button class="btn sci" onclick="appendSci('sqrt(')">√</button>
+      <button class="btn sci" onclick="appendSci('pow(')">xʸ</button>
+      <button class="btn sci" onclick="appendSci('pi')">π</button>
+      <button class="btn sci" onclick="appendSci('e')">e</button>
+      <button class="btn sci" onclick="squared()">x²</button>
+    </div>
+
+    <!-- Basic Pad -->
+    <div class="basic-pad">
+      <!-- Row 1 -->
+      <button class="btn func" onclick="clearAll()">C</button>
+      <button class="btn func" onclick="toggleSign()">±</button>
+      <button class="btn func" onclick="percent()">%</button>
+      <button class="btn op"   onclick="appendOp('/')">÷</button>
+      <!-- Row 2 -->
+      <button class="btn num"  onclick="appendNum('7')">7</button>
+      <button class="btn num"  onclick="appendNum('8')">8</button>
+      <button class="btn num"  onclick="appendNum('9')">9</button>
+      <button class="btn op"   onclick="appendOp('*')">×</button>
+      <!-- Row 3 -->
+      <button class="btn num"  onclick="appendNum('4')">4</button>
+      <button class="btn num"  onclick="appendNum('5')">5</button>
+      <button class="btn num"  onclick="appendNum('6')">6</button>
+      <button class="btn op"   onclick="appendOp('-')">−</button>
+      <!-- Row 4 -->
+      <button class="btn num"  onclick="appendNum('1')">1</button>
+      <button class="btn num"  onclick="appendNum('2')">2</button>
+      <button class="btn num"  onclick="appendNum('3')">3</button>
+      <button class="btn op"   onclick="appendOp('+')">+</button>
+      <!-- Row 5 -->
+      <button class="btn num zero" onclick="appendNum('0')">0</button>
+      <button class="btn num"  onclick="appendDot()">.</button>
+      <button class="btn eq"   onclick="calculate()">=</button>
+    </div>
+
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
